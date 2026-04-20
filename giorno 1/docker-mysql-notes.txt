@@ -1,0 +1,21 @@
+﻿# COMANDI DOCKER MYSQL
+
+# Creazione volume e avvio container
+docker run -d --name mysql-db -e MYSQL_DATABASE=academy_db -e MYSQL_USER=user -e MYSQL_PASSWORD=123 -e MYSQL_ROOT_PASSWORD=123 -p 3307:3306 -v mysql-data:/var/lib/mysql mysql:latest
+
+# Verifica container attivi
+docker ps
+
+# Log del container
+docker logs mysql-db
+
+# Stop e restart
+docker stop mysql-db
+docker start mysql-db
+
+# Lista volumi
+docker volume ls
+
+# OUTPUT docker ps:
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS         PORTS                                         NAMES
+47f6f3b2de7c   mysql:latest   "docker-entrypoint.s…"   11 minutes ago   Up 2 minutes   0.0.0.0:3307->3306/tcp, [::]:3307->3306/tcp   mysql-db
