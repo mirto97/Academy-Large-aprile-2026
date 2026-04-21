@@ -1,0 +1,96 @@
+15. Crea una tabella LIBRI con le colonne: id (intero), titolo (testo), autore (testo), genere (testo), anno (intero), prezzo (decimale), disponibile (booleano o intero 0/1).
+
+create table book
+(
+	id int primary key auto_increment,
+	title text not null,
+    	author text not null,
+    	genre text not null,
+    	year int,
+   	price decimal(4, 2),
+    	available boolean
+);
+
+
+16. Inserisci almeno 10 libri con dati variati (generi diversi, anni tra 1990 e 2024, prezzi tra 8 e 35 euro, alcuni non disponibili). Sii creativo con i titoli!
+
+INSERT INTO book (title, author, genre, year, price, available) VALUES
+('La Mappa dei Sogni Perduti', 'Elena Marchetti', 'Fantasy', 2003, 16.99, TRUE),
+('Codice Binario', 'Andrea Conti', 'Thriller', 2018, 12.50, FALSE),
+('L''Ultimo Treno per Mosca', 'Sergei Volkov', 'Storico', 1995, 22.00, TRUE),
+('Pianeti di Sabbia', 'Lara Nkosi', 'Fantascienza', 2021, 9.99,  TRUE),
+('Il Custode delle Maree', 'Marco Ferretti', 'Avventura', 2009, 14.50, FALSE),
+('Ricette per l''Apocalisse', 'Chef Giuliano Rosi', 'Umorismo', 2022, 8.99,  TRUE),
+('Ossa sotto la Neve', 'Ingrid Palsson', 'Noir', 1999, 11.00, FALSE),
+('La Fisica delle Farfalle', 'Prof. Yuki Tanaka', 'Saggistica', 2015, 27.50, TRUE),
+('Figli del Vento', 'Amara Diallo', 'Narrativa', 2019, 18.00, TRUE),
+('Nessuno Torna da Khartoum', 'David Osei', 'Storico', 2007, 13.99, FALSE),
+('L''Algoritmo dei Cuori Spezzati', 'Sofia Ricci', 'Romantico', 2023, 10.50, TRUE),
+('Vent''anni sotto i Vulcani', 'Carlos Mendoza', 'Avventura', 1993, 34.99, FALSE);
+
+
+17. Scrivi una query che recuperi TUTTI i libri, ordinati per prezzo in modo crescente.
+
+select * from book order by price asc;
+
+
+18. Scrivi una query che recuperi solo i libri disponibili (disponibile = 1) il cui prezzo è compreso tra 10 e 20 euro.
+
+select * from book b where available=1 and price BETWEEN 10 and 20;
+
+
+19. Scrivi una query che recuperi i libri il cui autore contiene la lettera 'a' (usa LIKE). Visualizza solo il titolo e l'autore, con un alias leggibile per le colonne.
+
+select title as titolo, author as autore from book b where author like '%a%';
+
+
+20. Scrivi una query che recuperi i libri pubblicati tra il 2000 e il 2015, ordinati per anno decrescente, mostrando solo i primi 5 risultati (usa LIMIT).
+
+select * from book b where year between 2000 and 2015 order by year desc limit 5;
+
+
+21. Scrivi una query che recuperi i libri del genere 'Fantasy' OPPURE del genere 'Fantascienza' usando l'operatore IN.
+
+select * from book b where genre in ('Fantasy','Fantascienza');
+
+
+22. Scrivi una query che conti il numero totale di libri presenti nella tabella.
+
+select count(*) from book b;
+
+
+23. Scrivi una query che calcoli il prezzo medio, il prezzo massimo e il prezzo minimo di tutti i libri.
+
+select MIN(b.price), MAX(b.price), AVG(b.price) from book b;
+
+
+24. Scrivi una query che mostri, per ogni genere, il numero di libri e il prezzo medio. Ordina per numero di libri in modo decrescente. (Usa GROUP BY.)
+
+select b.genre as genere, count(*) as scorte, avg(b.price) as prezzo_medio 
+from book b 
+group by genere 
+order by scorte desc;
+
+
+25. Scrivi una query che usi GROUP BY e HAVING per mostrare solo i generi che hanno più di 2 libri.
+
+select count(b.genre), b.genre from book b group by b.genre having count(*)>2;
+
+
+26. Scrivi una query che mostri il titolo di ogni libro tutto in maiuscolo (usa una funzione di testo) e la lunghezza del titolo in caratteri.
+
+select UPPER(b.title) as titolo, LENGTH(b.title) as lunghezza
+from book b 
+order by lunghezza desc;
+
+
+27. Scrivi una query che calcoli, per ogni libro, il prezzo con IVA al 22% (prezzo * 1.22) arrotondato a due decimali. Mostra titolo, prezzo originale e prezzo con IVA.
+
+select title, price, ROUND(price * 1.22, 2) as prezzo_ivato from book b;
+
+
+28. BONUS: Scrivi una query che usi una funzione di data per visualizzare l'anno corrente e calcoli quanti anni fa è stato pubblicato ogni libro.
+
+select title, year, YEAR(CURDATE()) as anno_corrente, YEAR(CURDATE()) - year as anni_fa
+from book b 
+order by anni_fa desc;
