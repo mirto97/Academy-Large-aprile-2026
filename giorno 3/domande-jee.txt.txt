@@ -1,0 +1,32 @@
+37. Cos'è un Web Container? Qual è il suo ruolo in un'applicazione JEE? Fai un esempio di Web Container che conosci. 
+
+il Web Container è un componente server che gestisce gli altri componenti di una web app.
+in JEE si trova tra l'HTTP e il codice Java, il developer scrive la logica, il container gestisce l'infrastruttura.
+Tomcat è il web container più diffuso.
+
+38. Qual è la differenza tra un sito web statico e un'applicazione web dinamica? Fai un esempio concreto di ciascuno. 
+
+un sito web statico è una pagina html senza la possibilità di interagire con essa e con sempre le stesse informazioni caricate al suo interno ogni volta.
+una web app dinamica è una pagina che interroga il db e/o genera html personalizzato a seconda delle richieste dell'utente.
+
+39. Cos'è un file WAR? Cosa contiene e perché è importante nel deploy di un'applicazione Java web? 
+
+un WAR è un file compresso con tutto il necessario per una web app java.
+è importante perché permette di avere l'intera app in un singolo file.
+
+40. Cos'è il protocollo HTTP? Descrivi brevemente cosa succede quando un browser fa una richiesta a un server web (ciclo request-response). 
+
+HTTP è il protocollo che permette lo scambio di dati tra client e server.
+i metodi HTTP principali per eseguire una request sono GET (recupera dati), POST (invia dati), PUT (aggiorna), DELETE (elimina).
+i codici di stato indicano l'esito della response: 200 OK, 404 Not Found, 500 Internal Server Error, ecc...
+
+41. A cosa serve il file web.xml in un'applicazione JEE? Fai almeno un esempio di configurazione che può contenere. 
+
+è un file che configura il comportamento dell'app, senza modificarne il codice.
+un esempio di xml è il pom.xml che troviamo nei progetti spring, che configura tutte le dipendenza necessarie al programma per far funzionare il codice
+
+42. In base a quanto studiato, qual è la differenza tra JEE e Jakarta EE? Perché è avvenuto questo cambiamento di nome?
+
+il cambiamento è avvenuto perché è passato da Oracle a Eclipse, che ha dovuto cambiare il nome e i package in Jakarta.
+
+
