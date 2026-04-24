@@ -1,0 +1,27 @@
+Cosa ho creato:
+LoggingFilter.java — esercizi 54 e 55
+
+Implementa Filter e si mappa su /*. Prima di chiamare chain.doFilter() salva il timestamp con LocalDateTime.now() e legge metodo + URL (aggiungendo anche la query string se presente). Dopo il chain.doFilter() calcola System.currentTimeMillis() - inizio e stampa i ms sulla console.
+MaintenanceServlet.java — esercizio 56
+Servlet mappata su /manutenzione. Risponde con status HTTP 503 (semanticamente corretto) e una pagina HTML con il messaggio richiesto.
+MaintenanceFilter.java — esercizio 57
+Contiene il flag private static final boolean IN_MANUTENZIONE = true. Se è true, estrae il servletPath dalla richiesta e lo confronta con /manutenzione: se sono uguali lascia passare (altrimenti si creerebbe un loop infinito di redirect), altrimenti chiama sendRedirect(). Per disattivare la manutenzione basta mettere false.
+ForwardRedirectServlet.java — esercizio 58
+Una sola Servlet gestisce tre path leggendo getServletPath():
+
+/azione-forward → imposta un attributo di REQUEST e chiama dispatcher.forward()
+/azione-redirect → chiama sendRedirect() verso /destinazione
+/destinazione → pagina che mostra se l'attributo REQUEST è arrivato (sì col forward, no col redirect) e una tabella comparativa
+
+Nella tab Network dei DevTools vedrai chiaramente: il forward genera 1 richiesta, il redirect ne genera 2 (302 + GET).
+web.xml
+Ho corretto anche un typo presente nell'originale (</url-parameter> → </url-pattern> nell'EchoServlet) e ho aggiunto i nuovi componenti. I filtri sono dichiarati nell'ordine corretto: LoggingFilter prima (così logga sempre), MaintenanceFilter dopo.
+
+-.-.-
+
+Alcune cose da notare che potrebbero farti fare bella figura all'esame:
+getSession(false) vs getSession(true) — in DashboardServlet e LogoutServlet uso false di proposito: non ha senso creare una sessione vuota solo per controllare se l'utente è loggato.
+return dopo il redirect — in DashboardServlet dopo sendRedirect c'è un return esplicito. Senza di esso il metodo continuerebbe ad eseguire il codice sottostante anche dopo aver inviato il 302, causando un IllegalStateException.
+Pattern POST → Redirect → GET — in LoginServlet dopo la POST (sia in caso di successo che di errore) si fa sempre un redirect. Questo evita il classico popup "Vuoi reinviare il modulo?" se l'utente preme F5 sulla dashboard o sulla pagina di errore.
+
+I LISTENER non si mappano come le servlet, non hanno un URL. Tomcat li invoca automaticamente sugli eventi (sessione creata/distrutta).
