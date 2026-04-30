@@ -13,21 +13,38 @@ import com.academy.primo_progetto.service.SalutoService;
 @RestController
 public class SalutoController {
 
+    // field injection (come javasifu), non è consigliato ma funziona lo stesso, è più semplice da scrivere ma meno chiaro e più difficile da testare.
     @Autowired
     private SalutoService salutoService;
 
-    @Autowired
+    // CONSTRUCTOR INJECTION, è il più consigliato perché rende esplicite le dipendenze e facilita i test, ma è più verboso da scrivere.
     private ContatoreBeanSingleton contatore;
-
-    @Autowired
     private ContatoreBeanPrototype contProto;
 
-    // mi dice che nel costruttore non è necessario autowired
-    // quindi l'ho messo solo sulla proprietà anche se senza non essere necessario nemmeno lì
+    // @Autowired      (andrebbe qua, però Spring lo capisce anche senza perché c'è un solo costruttore, in caso di più costruttori serve per indicare a Spring quale usare)
+    public SalutoController(ContatoreBeanPrototype contProto, ContatoreBeanSingleton contatore) {
+        this.contProto = contProto;
+        this.contatore = contatore;
+    }   
 
-    public SalutoController(SalutoService salutoService) {
-        this.salutoService = salutoService;
+
+    // setter injection: Spring chiama questo metodo dopo aver creato il bean.
+    // È utile quando la dipendenza è opzionale o può essere cambiata dopo la creazione.
+    // Meno consigliato del costruttore, ma più esplicito del field injection.
+    private SalutoService salutoServiceSetter;
+
+    @Autowired
+    public void setSalutoServiceSetter(SalutoService salutoService) {
+        this.salutoServiceSetter = salutoService;
     }
+
+    @GetMapping("/saluto-setter")
+    public String salutoConSetter() {
+        return "Setter injection -> " + salutoServiceSetter.getSaluto();
+    }
+
+
+    // --------------------------------------------------------------
 
     @GetMapping("/contatore")
     public String getContatore() {

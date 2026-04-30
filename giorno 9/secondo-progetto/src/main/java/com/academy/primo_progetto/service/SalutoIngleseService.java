@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("salutoInglese")
+@Qualifier("inglese") // così gli do il nome corto ma potrei usare semplicemente il nome completo della classe con la prima lettera minuscola, quindi "salutoIngleseService"
 public class SalutoIngleseService implements SalutoService {
     
     @Override
