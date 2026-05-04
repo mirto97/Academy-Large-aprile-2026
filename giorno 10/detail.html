@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="it">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio Utente</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+    <style>
+      /* Stile interno per aggiungere cosa manca in style.css */
+
+      .detail-card {
+        background: var(--surface);
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 32px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .detail-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .detail-avatar {
+        flex-shrink: 0;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--avatar-bg);
+        color: var(--avatar-fg);
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .detail-title h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.6rem;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        color: var(--text);
+      }
+
+      .detail-title .role-badge {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 3px 10px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        background: var(--accent-bg);
+        color: var(--accent);
+        border-radius: 99px;
+      }
+
+      .detail-divider {
+        height: 1px;
+        background: var(--border);
+      }
+
+      .detail-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .detail-field {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .field-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .field-value {
+        font-size: 0.98rem;
+        color: var(--text);
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-decoration: none;
+        margin-bottom: 24px;
+        transition: color var(--transition);
+      }
+
+      .back-link:hover {
+        color: var(--accent);
+      }
+
+      .back-link::before {
+        content: '←';
+        transition: transform var(--transition);
+      }
+
+      .back-link:hover::before {
+        transform: translateX(-3px);
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <header>
+      <h1>User Directory</h1>
+      <p class="subtitle">Dettaglio utente</p>
+    </header>
+
+    <main>
+      <a href="index.html" class="back-link">Torna alla lista</a>
+
+      <div class="detail-card">
+
+        <div class="detail-header">
+          <div class="detail-avatar">MR</div>
+          <div class="detail-title">
+            <h2>Mario Rossi</h2>
+            <span class="role-badge">Sviluppatore</span>
+          </div>
+        </div>
+
+        <div class="detail-divider"></div>
+
+        <div class="detail-fields">
+          <div class="detail-field">
+            <span class="field-label">Email</span>
+            <span class="field-value">mario.rossi@email.it</span>
+          </div>
+          <div class="detail-field">
+            <span class="field-label">Telefono</span>
+            <span class="field-value">+39 333 123 4567</span>
+          </div>
+          <div class="detail-field">
+            <span class="field-label">Città</span>
+            <span class="field-value">Roma</span>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </body>
+
+</html>
