@@ -1,0 +1,112 @@
+2026-05-05T15:45:51.080+02:00  WARN 27084 --- [esercizio] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    drop table if exists student
+Hibernate: 
+    create table student (
+        dob date not null,
+        id integer not null auto_increment,
+        degree varchar(255),
+        email varchar(255) not null,
+        name varchar(255) not null,
+        surname varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table student 
+       add constraint UKfe0i52si7ybu0wjedj6motiim unique (email)
+2026-05-05T15:45:52.545+02:00  WARN 27084 --- [esercizio] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+Hibernate: 
+    insert 
+    into
+        student
+        (degree, dob, email, name, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Studente salvato: Mario Rossi
+Hibernate: 
+    insert 
+    into
+        student
+        (degree, dob, email, name, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Studente salvato: Luigi Verdi
+Hibernate: 
+    insert 
+    into
+        student
+        (degree, dob, email, name, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Studente salvato: Giulia Bianchi
+Tutti gli studenti:
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.surname 
+    from
+        student s1_0
+1: Mario Rossi
+2: Luigi Verdi
+3: Giulia Bianchi
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.surname 
+    from
+        student s1_0 
+    where
+        s1_0.id=?
+Hibernate: 
+    update
+        student 
+    set
+        degree=?,
+        dob=?,
+        email=?,
+        name=?,
+        surname=? 
+    where
+        id=?
+Studente aggiornato: Mario Rossi - Nuovo corso di laurea: Ingegneria Informatica
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.surname 
+    from
+        student s1_0 
+    where
+        s1_0.id=?
+Hibernate: 
+    delete 
+    from
+        student 
+    where
+        id=?
+Studente cancellato: Giulia Bianchi (ID: 3)
+Studenti iscritti al corso di laurea 'Ingegneria Informatica':
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.surname 
+    from
+        student s1_0 
+    where
+        s1_0.degree=?
+1: Mario Rossi
