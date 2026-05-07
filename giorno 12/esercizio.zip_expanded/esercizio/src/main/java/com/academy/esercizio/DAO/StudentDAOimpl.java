@@ -8,17 +8,17 @@ import com.academy.esercizio.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
 
 // fu "repository" in jpa, ora è DAO perchè stiamo usando entity manager, non più spring data jpa
 @Repository
 public class StudentDAOimpl implements StudentDAO {
 
+    // Spring non inietta un EntityManager reale, ma un proxy thread-safe. Ogni thread (ovvero ogni richiesta HTTP) riceve la propria istanza di EntityManager legata alla transazione corrente. Questo risolve il problema della concorrenza.
+    // funzionerebbe anche @Autowired, ma è più corretto così per EntityManager (permette a Spring di gestire meglio il ciclo di vita dell'EntityManager)
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public Student save(Student s) {
         entityManager.persist(s);
         return s;
@@ -41,7 +41,6 @@ public class StudentDAOimpl implements StudentDAO {
     }
 
     @Override
-    @Transactional
     public void deleteById(int id) {
         Student student = findById(id);
         if (student != null) {
@@ -50,8 +49,9 @@ public class StudentDAOimpl implements StudentDAO {
     }
 
     @Override
-    @Transactional
     public Student update(Student s) {
+        // "merge" salva o aggiorna l'entità a seconda dell'id
+        //  se l'id è 0 o negativo, viene considerata una nuova entità e viene salvata; se l'id è positivo, viene considerata un'entità esistente e viene aggiornata
         return entityManager.merge(s);
     }
 

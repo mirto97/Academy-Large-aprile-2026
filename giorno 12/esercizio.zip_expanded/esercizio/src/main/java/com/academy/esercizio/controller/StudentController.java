@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.academy.esercizio.entity.Student;
 import com.academy.esercizio.exception.StudentNotFoundException;
-import com.academy.esercizio.service.StudentService;
+import com.academy.esercizio.service.StudentServiceImpl;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class StudentController {
 
     @Autowired // field injection per semplicità
-    private StudentService service;
+    private StudentServiceImpl service;
 
     // endpoint get che restituisce solo  il corso di laurea dello studente con quell'ID
     // come stringa JSON. Se lo studente non esiste, uso l'eccezione studentnotfound
