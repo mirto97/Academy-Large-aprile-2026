@@ -1,0 +1,171 @@
+2026-05-08T15:41:11.096+02:00  WARN 22108 --- [esercizio] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    drop table if exists role
+Hibernate: 
+    drop table if exists student
+Hibernate: 
+    drop table if exists user
+Hibernate: 
+    create table role (
+        id integer not null auto_increment,
+        user_id integer not null,
+        role varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table student (
+        dob date not null,
+        id integer not null auto_increment,
+        degree varchar(255),
+        email varchar(255) not null,
+        name varchar(255) not null,
+        surname varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table user (
+        active bit not null,
+        id integer not null auto_increment,
+        password varchar(60) not null,
+        username varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table student 
+       add constraint UKfe0i52si7ybu0wjedj6motiim unique (email)
+Hibernate: 
+    alter table user 
+       add constraint UKsb8bbouer5wak8vyiiy4pf2bx unique (username)
+2026-05-08T15:41:13.257+02:00  WARN 22108 --- [esercizio] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-08T15:41:13.311+02:00  INFO 22108 --- [esercizio] [  restartedMain] o.s.s.p.JdbcUserDetailsManager           : No authentication manager set. Reauthentication of users when changing passwords will not be performed.
+2026-05-08T15:41:13.318+02:00  INFO 22108 --- [esercizio] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsManager
+2026-05-08T15:41:13.492+02:00 DEBUG 22108 --- [esercizio] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, ExceptionTranslationFilter, AuthorizationFilter
+Hibernate: 
+    insert 
+    into
+        student
+        (degree, dob, email, name, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Studente salvato: Mario Rossi
+Hibernate: 
+    insert 
+    into
+        student
+        (degree, dob, email, name, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Studente salvato: Luigi Verdi
+Hibernate: 
+    insert 
+    into
+        student
+        (degree, dob, email, name, surname) 
+    values
+        (?, ?, ?, ?, ?)
+Studente salvato: Giulia Bianchi
+Tutti gli studenti:
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.surname 
+    from
+        student s1_0
+1: Mario Rossi
+2: Luigi Verdi
+3: Giulia Bianchi
+Hibernate: 
+    insert 
+    into
+        user
+        (active, password, username) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user
+        (active, password, username) 
+    values
+        (?, ?, ?)
+Utenti salvati: admin, user
+Hibernate: 
+    insert 
+    into
+        role
+        (role, user_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        role
+        (role, user_id) 
+    values
+        (?, ?)
+Hibernate: 
+    insert 
+    into
+        role
+        (role, user_id) 
+    values
+        (?, ?)
+Ruoli salvati: ROLE_ADMIN per admin, ROLE_USER per admin, ROLE_USER per user
+2026-05-08T15:41:16.929+02:00  WARN 22108 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /apidocs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-05-08T15:41:16.929+02:00  WARN 22108 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-05-08T15:41:26.120+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /swagger
+2026-05-08T15:41:26.391+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-1] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-05-08T15:41:26.394+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-1] o.s.s.w.a.www.BasicAuthenticationFilter  : Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN, ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=7CD8739F748D7656A63621613FCC2D1A], Granted Authorities=[ROLE_ADMIN, ROLE_USER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-05-08T13:41:26.391413300Z]]]
+2026-05-08T15:41:26.401+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /swagger
+2026-05-08T15:41:26.599+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /swagger-ui/swagger-initializer.js
+2026-05-08T15:41:26.727+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-2] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-05-08T15:41:26.729+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-2] o.s.s.w.a.www.BasicAuthenticationFilter  : Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN, ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=7CD8739F748D7656A63621613FCC2D1A], Granted Authorities=[ROLE_ADMIN, ROLE_USER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-05-08T13:41:26.727809Z]]]
+2026-05-08T15:41:26.730+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /swagger-ui/swagger-initializer.js
+2026-05-08T15:41:26.844+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /apidocs/swagger-config
+2026-05-08T15:41:26.970+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-5] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-05-08T15:41:26.972+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-5] o.s.s.w.a.www.BasicAuthenticationFilter  : Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN, ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=7CD8739F748D7656A63621613FCC2D1A], Granted Authorities=[ROLE_ADMIN, ROLE_USER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-05-08T13:41:26.970879300Z]]]
+2026-05-08T15:41:26.973+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /apidocs/swagger-config
+2026-05-08T15:41:27.068+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /apidocs
+2026-05-08T15:41:27.225+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-3] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-05-08T15:41:27.226+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-3] o.s.s.w.a.www.BasicAuthenticationFilter  : Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN, ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=7CD8739F748D7656A63621613FCC2D1A], Granted Authorities=[ROLE_ADMIN, ROLE_USER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-05-08T13:41:27.225647400Z]]]
+2026-05-08T15:41:27.226+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /apidocs
+2026-05-08T15:42:17.359+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/register
+2026-05-08T15:42:17.494+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-6] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-05-08T15:42:17.495+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-6] o.s.s.w.a.www.BasicAuthenticationFilter  : Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN, ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=7CD8739F748D7656A63621613FCC2D1A], Granted Authorities=[ROLE_ADMIN, ROLE_USER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-05-08T13:42:17.493569800Z]]]
+2026-05-08T15:42:17.498+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/register
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.password,
+        u1_0.username 
+    from
+        user u1_0 
+    where
+        u1_0.username=?
+Hibernate: 
+    insert 
+    into
+        user
+        (active, password, username) 
+    values
+        (?, ?, ?)
+2026-05-08T15:42:41.531+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing POST /api/auth/register
+2026-05-08T15:42:41.665+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-7] o.s.s.a.dao.DaoAuthenticationProvider    : Authenticated user
+2026-05-08T15:42:41.666+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-7] o.s.s.w.a.www.BasicAuthenticationFilter  : Set SecurityContextHolder to UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN, ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=7CD8739F748D7656A63621613FCC2D1A], Granted Authorities=[ROLE_ADMIN, ROLE_USER, FactorGrantedAuthority [authority=FACTOR_PASSWORD, issuedAt=2026-05-08T13:42:41.665492700Z]]]
+2026-05-08T15:42:41.667+02:00 DEBUG 22108 --- [esercizio] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured POST /api/auth/register
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.password,
+        u1_0.username 
+    from
+        user u1_0 
+    where
+        u1_0.username=?
+2026-05-08T15:42:41.684+02:00  WARN 22108 --- [esercizio] [nio-8080-exec-7] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.academy.esercizio.exception.UsernameAlreadyExistsException: Username already exists: gigi]
