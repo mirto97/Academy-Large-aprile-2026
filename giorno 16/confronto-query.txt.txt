@@ -1,0 +1,964 @@
+>> FetchType.LAZY
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-05-12T17:08:22.981+02:00  WARN 20780 --- [esercizio] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    alter table student 
+       drop 
+       foreign key FKdfypyqt0stgfc0aij9kcxm99s
+Hibernate: 
+    alter table student 
+       drop 
+       foreign key FKq95wpawun6q0o6sugue1yed5e
+Hibernate: 
+    drop table if exists course
+Hibernate: 
+    drop table if exists role
+Hibernate: 
+    drop table if exists student
+Hibernate: 
+    drop table if exists student_profile
+Hibernate: 
+    drop table if exists user
+Hibernate: 
+    create table course (
+        id integer not null auto_increment,
+        years integer not null,
+        department varchar(255),
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table role (
+        id integer not null auto_increment,
+        user_id integer not null,
+        role varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table student (
+        course_id integer,
+        dob date not null,
+        id integer not null auto_increment,
+        profile_id integer,
+        degree varchar(255),
+        email varchar(255) not null,
+        name varchar(255) not null,
+        surname varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table student_profile (
+        id integer not null auto_increment,
+        created_at datetime(6) not null,
+        bio varchar(255),
+        linkedin varchar(255),
+        photo_url varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table user (
+        active bit not null,
+        id integer not null auto_increment,
+        password varchar(60) not null,
+        username varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table course 
+       add constraint UK4xqvdpkafb91tt3hsb67ga3fj unique (name)
+Hibernate: 
+    alter table student 
+       add constraint UKgbmp19hn4i0ng1cir2pkj4c4u unique (profile_id)
+Hibernate: 
+    alter table student 
+       add constraint UKfe0i52si7ybu0wjedj6motiim unique (email)
+Hibernate: 
+    alter table user 
+       add constraint UKsb8bbouer5wak8vyiiy4pf2bx unique (username)
+Hibernate: 
+    alter table student 
+       add constraint FKdfypyqt0stgfc0aij9kcxm99s 
+       foreign key (course_id) 
+       references course (id)
+Hibernate: 
+    alter table student 
+       add constraint FKq95wpawun6q0o6sugue1yed5e 
+       foreign key (profile_id) 
+       references student_profile (id)
+2026-05-12T17:08:25.291+02:00  WARN 20780 --- [esercizio] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Mario Rossi
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Luigi Verdi
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Giulia Bianchi
+Tutti gli studenti:
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.course_id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.profile_id,
+        s1_0.surname 
+    from
+        student s1_0
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0 
+    where
+        c1_0.id=?
+1: Mario Rossi
+2: Luigi Verdi
+3: Giulia Bianchi
+2026-05-12T17:08:26.075+02:00  WARN 20780 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /apidocs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-05-12T17:08:26.079+02:00  WARN 20780 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+
+
+
+>> FetchType.EAGER
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-05-12T17:06:53.892+02:00  WARN 6524 --- [esercizio] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    alter table student 
+       drop 
+       foreign key FKdfypyqt0stgfc0aij9kcxm99s
+Hibernate: 
+    alter table student 
+       drop 
+       foreign key FKq95wpawun6q0o6sugue1yed5e
+Hibernate: 
+    drop table if exists course
+Hibernate: 
+    drop table if exists role
+Hibernate: 
+    drop table if exists student
+Hibernate: 
+    drop table if exists student_profile
+Hibernate: 
+    drop table if exists user
+Hibernate: 
+    create table course (
+        id integer not null auto_increment,
+        years integer not null,
+        department varchar(255),
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table role (
+        id integer not null auto_increment,
+        user_id integer not null,
+        role varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table student (
+        course_id integer,
+        dob date not null,
+        id integer not null auto_increment,
+        profile_id integer,
+        degree varchar(255),
+        email varchar(255) not null,
+        name varchar(255) not null,
+        surname varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table student_profile (
+        id integer not null auto_increment,
+        created_at datetime(6) not null,
+        bio varchar(255),
+        linkedin varchar(255),
+        photo_url varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table user (
+        active bit not null,
+        id integer not null auto_increment,
+        password varchar(60) not null,
+        username varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table course 
+       add constraint UK4xqvdpkafb91tt3hsb67ga3fj unique (name)
+Hibernate: 
+    alter table student 
+       add constraint UKgbmp19hn4i0ng1cir2pkj4c4u unique (profile_id)
+Hibernate: 
+    alter table student 
+       add constraint UKfe0i52si7ybu0wjedj6motiim unique (email)
+Hibernate: 
+    alter table user 
+       add constraint UKsb8bbouer5wak8vyiiy4pf2bx unique (username)
+Hibernate: 
+    alter table student 
+       add constraint FKdfypyqt0stgfc0aij9kcxm99s 
+       foreign key (course_id) 
+       references course (id)
+Hibernate: 
+    alter table student 
+       add constraint FKq95wpawun6q0o6sugue1yed5e 
+       foreign key (profile_id) 
+       references student_profile (id)
+2026-05-12T17:06:56.458+02:00  WARN 6524 --- [esercizio] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Mario Rossi
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Luigi Verdi
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Giulia Bianchi
+Tutti gli studenti:
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.course_id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.profile_id,
+        s1_0.surname 
+    from
+        student s1_0
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years,
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        course c1_0 
+    left join
+        student s1_0 
+            on c1_0.id=s1_0.course_id 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years,
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        course c1_0 
+    left join
+        student s1_0 
+            on c1_0.id=s1_0.course_id 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years,
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        course c1_0 
+    left join
+        student s1_0 
+            on c1_0.id=s1_0.course_id 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        c1_0.id=?
+1: Mario Rossi
+2: Luigi Verdi
+3: Giulia Bianchi
+2026-05-12T17:06:57.225+02:00  WARN 6524 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /apidocs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-05-12T17:06:57.225+02:00  WARN 6524 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+
+
+>> JOIN Fetch
+
+
+2026-05-12T17:36:46.923+02:00  WARN 21664 --- [esercizio] [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+Hibernate: 
+    alter table student 
+       drop 
+       foreign key FKdfypyqt0stgfc0aij9kcxm99s
+2026-05-12T17:36:47.801+02:00  WARN 21664 --- [esercizio] [  restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table student 
+       drop 
+       foreign key FKdfypyqt0stgfc0aij9kcxm99s" via JDBC [Table 'eserciziojpa.student' doesn't exist]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table student 
+       drop 
+       foreign key FKdfypyqt0stgfc0aij9kcxm99s" via JDBC [Table 'eserciziojpa.student' doesn't exist]
+        at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:81) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:218) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:204) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:473) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:237) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:210) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:182) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:152) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:227) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$1(SchemaManagementToolCoordinator.java:101) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+        at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:100) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:35) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:33) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:323) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.internal.SessionFactoryRegistry.instantiateSessionFactory(SessionFactoryRegistry.java:64) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:437) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1456) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977) ~[spring-context-7.0.7.jar:7.0.7]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621) ~[spring-context-7.0.7.jar:7.0.7]
+        at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.0.6.jar:4.0.6]
+        at com.academy.esercizio.EsercizioApplication.main(EsercizioApplication.java:10) ~[classes/:na]
+        at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+        at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:52) ~[spring-boot-devtools-4.0.6.jar:4.0.6]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'eserciziojpa.student' doesn't exist
+        at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:112) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:687) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95) ~[HikariCP-7.0.2.jar:na]
+        at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-7.0.2.jar:na]
+        at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:76) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        ... 43 common frames omitted
+
+Hibernate: 
+    alter table student 
+       drop 
+       foreign key FKq95wpawun6q0o6sugue1yed5e
+2026-05-12T17:36:47.808+02:00  WARN 21664 --- [esercizio] [  restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table student 
+       drop 
+       foreign key FKq95wpawun6q0o6sugue1yed5e" via JDBC [Table 'eserciziojpa.student' doesn't exist]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table student 
+       drop 
+       foreign key FKq95wpawun6q0o6sugue1yed5e" via JDBC [Table 'eserciziojpa.student' doesn't exist]
+        at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:81) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:218) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:204) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:473) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:237) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:210) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:182) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:152) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:227) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$1(SchemaManagementToolCoordinator.java:101) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+        at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:100) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:35) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:33) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:323) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.internal.SessionFactoryRegistry.instantiateSessionFactory(SessionFactoryRegistry.java:64) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:437) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1456) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419) ~[spring-orm-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.7.jar:7.0.7]
+        at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977) ~[spring-context-7.0.7.jar:7.0.7]
+        at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621) ~[spring-context-7.0.7.jar:7.0.7]
+        at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.0.6.jar:4.0.6]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.0.6.jar:4.0.6]
+        at com.academy.esercizio.EsercizioApplication.main(EsercizioApplication.java:10) ~[classes/:na]
+        at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+        at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+        at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:52) ~[spring-boot-devtools-4.0.6.jar:4.0.6]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'eserciziojpa.student' doesn't exist
+        at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:112) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:839) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:687) ~[mysql-connector-j-9.7.0.jar:9.7.0]
+        at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95) ~[HikariCP-7.0.2.jar:na]
+        at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-7.0.2.jar:na]
+        at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:76) ~[hibernate-core-7.2.12.Final.jar:7.2.12.Final]
+        ... 43 common frames omitted
+
+Hibernate: 
+    drop table if exists course
+Hibernate: 
+    drop table if exists role
+Hibernate: 
+    drop table if exists student
+Hibernate: 
+    drop table if exists student_profile
+Hibernate: 
+    drop table if exists user
+Hibernate: 
+    create table course (
+        id integer not null auto_increment,
+        years integer not null,
+        department varchar(255),
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table role (
+        id integer not null auto_increment,
+        user_id integer not null,
+        role varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table student (
+        course_id integer,
+        dob date not null,
+        id integer not null auto_increment,
+        profile_id integer,
+        degree varchar(255),
+        email varchar(255) not null,
+        name varchar(255) not null,
+        surname varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table student_profile (
+        id integer not null auto_increment,
+        created_at datetime(6) not null,
+        bio varchar(255),
+        linkedin varchar(255),
+        photo_url varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table user (
+        active bit not null,
+        id integer not null auto_increment,
+        password varchar(60) not null,
+        username varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table course 
+       add constraint UK4xqvdpkafb91tt3hsb67ga3fj unique (name)
+Hibernate: 
+    alter table student 
+       add constraint UKgbmp19hn4i0ng1cir2pkj4c4u unique (profile_id)
+Hibernate: 
+    alter table student 
+       add constraint UKfe0i52si7ybu0wjedj6motiim unique (email)
+Hibernate: 
+    alter table user 
+       add constraint UKsb8bbouer5wak8vyiiy4pf2bx unique (username)
+Hibernate: 
+    alter table student 
+       add constraint FKdfypyqt0stgfc0aij9kcxm99s 
+       foreign key (course_id) 
+       references course (id)
+Hibernate: 
+    alter table student 
+       add constraint FKq95wpawun6q0o6sugue1yed5e 
+       foreign key (profile_id) 
+       references student_profile (id)
+2026-05-12T17:36:49.221+02:00  WARN 21664 --- [esercizio] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Mario Rossi
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Luigi Verdi
+Hibernate: 
+    insert 
+    into
+        course
+        (department, name, years) 
+    values
+        (?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        student
+        (course_id, degree, dob, email, name, profile_id, surname) 
+    values
+        (?, ?, ?, ?, ?, ?, ?)
+Studente salvato: Giulia Bianchi
+Tutti gli studenti:
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.course_id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        s1_0.profile_id,
+        s1_0.surname 
+    from
+        student s1_0
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0 
+    where
+        c1_0.id=?
+1: Mario Rossi
+2: Luigi Verdi
+3: Giulia Bianchi
+2026-05-12T17:36:51.712+02:00  WARN 21664 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /apidocs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-05-12T17:36:51.717+02:00  WARN 21664 --- [esercizio] [  restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.department,
+        c1_0.name,
+        c1_0.years 
+    from
+        course c1_0
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+Hibernate: 
+    select
+        s1_0.course_id,
+        s1_0.id,
+        s1_0.degree,
+        s1_0.dob,
+        s1_0.email,
+        s1_0.name,
+        p1_0.id,
+        p1_0.bio,
+        p1_0.created_at,
+        p1_0.linkedin,
+        p1_0.photo_url,
+        s1_0.surname 
+    from
+        student s1_0 
+    left join
+        student_profile p1_0 
+            on p1_0.id=s1_0.profile_id 
+    where
+        s1_0.course_id=?
+
+
