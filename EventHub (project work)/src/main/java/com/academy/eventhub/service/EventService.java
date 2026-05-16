@@ -10,6 +10,7 @@ import com.academy.eventhub.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,12 +25,44 @@ public class EventService {
     private final TicketRepository ticketRepository;
     private final EventMapper eventMapper;
 
-    public List<EventResponseDTO> getAllEvents() {
-        return eventRepository.findAll()
-                .stream()
+    public List<EventResponseDTO> getAllEvents(LocalDateTime date, Integer tagId, Integer venueId) {
+        List<Event> events;
+
+        // Risolvi il tag se presente
+        Tag tag = null;
+        if (tagId != null) {
+            tag = tagRepository.findById(tagId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Tag non trovato con id: " + tagId));
+        }
+
+        // Usa il metodo repository più specifico disponibile per date e tag
+        if (date != null && tag != null) {
+            events = eventRepository.findByStartDateAfterAndTagsContaining(date, tag);
+        } else if (date != null) {
+            events = eventRepository.findByStartDateAfter(date);
+        } else if (tag != null) {
+            events = eventRepository.findByTagsContaining(tag);
+        } else if (venueId != null) {
+            // Venue come unico filtro: usa il metodo dedicato
+            events = eventRepository.findByVenueId(venueId);
+        } else {
+            events = eventRepository.findAll();
+        }
+
+        // Se venueId è presente combinato con altri filtri, applica in stream
+        // (non esiste un metodo repository per tutte le combinazioni)
+        if (venueId != null && (date != null || tag != null)) {
+            int vid = venueId;
+            events = events.stream()
+                    .filter(e -> e.getVenue().getId() == vid)
+                    .toList();
+        }
+
+        return events.stream()
                 .map(this::toResponseWithSeats)
                 .toList();
     }
+
 
     public List<EventResponseDTO> getEventsByOrganizer(int organizerId) {
         return eventRepository.findByOrganizerId(organizerId)

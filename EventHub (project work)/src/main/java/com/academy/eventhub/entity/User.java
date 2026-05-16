@@ -34,7 +34,7 @@ public class User {
     @NotBlank(message = "Password is required")
     private String password;
 
-    // TODO ho fatto un enum, chiedere conferma
+    // ho fatto un enum, per semplificare
     @Enumerated(EnumType.STRING)
     private Role role;
     public enum Role { USER, ORGANIZER, ADMIN };
